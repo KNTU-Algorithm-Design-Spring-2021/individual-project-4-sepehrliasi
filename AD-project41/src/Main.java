@@ -12,7 +12,11 @@ public class Main {
 
         bubbleSort(weights,n);
 
-        double average = n/k;
+        double sum = 0;
+        for (int i = 0;i < n;i++){
+            sum += weights[i];
+        }
+        double average = sum/k;
 
         int[] kamion = new int[k];
 
@@ -24,6 +28,11 @@ public class Main {
 
         System.out.println("Maximum weight: " + kamion[max(kamion,k)] + " Average weight: " + average);
     }
+    /*
+    10
+4
+13 24 45 2 34 63 16 37 47 44
+     */
 
     public static void bubbleSort(int[] weights, int n){
         for (int i = 0;i < n-1;i++){
@@ -46,12 +55,18 @@ public class Main {
                 kamion[m] += weights[p];
             }else {
                 m++;
-                kamion[m] += weights[p];
+                if (m < k) {
+                    kamion[m] += weights[p];
+                }else {
+                    p--;
+                }
             }
+            p++;
         }
         if (p < n){
             while (p < n){
                 kamion[min(kamion,k)] += weights[p];
+                p++;
             }
         }
     }
